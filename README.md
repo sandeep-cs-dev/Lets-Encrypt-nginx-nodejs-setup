@@ -33,7 +33,7 @@ cd letsencrypt
 ./letsencrypt-auto certonly --manual --email admin@example.com -d example.com
 ```
  Before pressing key to continue, replace actual path-key and and file with challenge key in express server.
- Note: Make sure your express server is accessible from the domain for which you want to optain certificate.
+ Make sure your express server is accessible from the domain for which you want to optain certificate.
 
 This creates a directory: `/etc/letsencrypt/live/example.com/` containing certificate files:
 
