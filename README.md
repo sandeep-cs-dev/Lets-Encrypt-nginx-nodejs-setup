@@ -5,6 +5,27 @@ Examples of getting certificates from [Let's Encrypt](https://letsencrypt.org/) 
 ## Obtain certificates
 I am using the manual method, you have to make a file available to pass let's encryp acme-challenge. Follow the commands from running
 
+# express server for acme challenge
+```javascript
+var app = express();
+var path = require("path");
+var fs  =  require("fs");
+var server = require('http').createServer(options,app)
+
+app.get('/.well-known/acme-challenge/{path-key}'
+, function(req, res) {
+    res.sendFile(path.join(__dirname + '/path_to_key_file'));
+});
+server.listen(3000,function(err){
+ if(!err) {
+ 	console.log("server listening oat port 3000");
+ }
+ else {
+ 	console.log("something went wrong",err);
+ }
+});
+
+```
 ```shell
 git clone https://github.com/letsencrypt/letsencrypt
 cd letsencrypt
@@ -18,10 +39,13 @@ This creates a directory: `/etc/letsencrypt/live/example.com/` containing certif
 - fullchain.pem
 - privkey.pem
 
-## Node.js
+## express js (https server)
+
 ```javascript
-var https = require('https');
-var fs = require('fs');
+var express = require('express');
+var app = express();
+var path = require("path");
+var fs  =  require("fs");
 
 var options = {
   key: fs.readFileSync('/etc/letsencrypt/live/example.com/privkey.pem'),
@@ -29,10 +53,17 @@ var options = {
   ca: fs.readFileSync('/etc/letsencrypt/live/example.com/chain.pem')
 };
 
-https.createServer(options, function (req, res) {
-  res.writeHead(200);
-  res.end("hello world\n");
-}).listen(8000);
+var server = require('https').createServer(options,app);
+//app.use(express.static(path.join(__dirname, 'public')));
+server.listen(3000,function(err){
+ if(!err) {
+ 	console.log("server listening oat port 3000");
+ }
+ else {
+ 	console.log("something went wrong",err);
+ }
+});
+
 ```
 
 ## NGINX
