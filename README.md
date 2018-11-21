@@ -1,9 +1,9 @@
 # Let's Encrypt
 
-Examples of getting certificates from [Let's Encrypt](https://letsencrypt.org/) working on NGINX and Node.js servers.
+Examples of getting certificates from [Let's Encrypt](https://letsencrypt.org/) while working on NGINX and Node.js servers.
 
 ## Obtain certificates
-I am using the manual method, you have to make a file available through express to pass let's encryp acme-challenge. 
+I am using the manual method. You have to make a file available through express to pass let's encrypt acme-challenge. 
 
 # express server for acme challenge
 ```javascript
@@ -26,16 +26,16 @@ server.listen(3000,function(err){
 });
 
 ```
-# Running Letencrypt script
+# Running Let's encrypt script
 ```shell
 git clone https://github.com/letsencrypt/letsencrypt
 cd letsencrypt
 ./letsencrypt-auto certonly --manual --email admin@example.com -d example.com
 ```
- Before pressing key to continue, replace actual path-key and and file with challenge key in express server.
- Make sure your express server is accessible from the domain for which you want to optain certificate.
+ Before pressing key to continue, replace actual path key and and file with challenge key in express server.
+ Make sure your express server is accessible from the domain for which you want to optain the certificate.
 
-This creates a directory: `/etc/letsencrypt/live/example.com/` containing certificate files:
+This creates a directory: `/etc/letsencrypt/live/example.com/` containing below certificate files:
 
 - cert.pem
 - chain.pem
