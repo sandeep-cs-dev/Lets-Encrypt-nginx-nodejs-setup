@@ -3,7 +3,7 @@
 Examples of getting certificates from [Let's Encrypt](https://letsencrypt.org/) working on NGINX and Node.js servers.
 
 ## Obtain certificates
-I am using the manual method, you have to make a file available to pass let's encryp acme-challenge. Follow the commands from running
+I am using the manual method, you have to make a file available through express to pass let's encryp acme-challenge. 
 
 # express server for acme challenge
 ```javascript
@@ -26,11 +26,14 @@ server.listen(3000,function(err){
 });
 
 ```
+# Running Letencrypt script
 ```shell
 git clone https://github.com/letsencrypt/letsencrypt
 cd letsencrypt
 ./letsencrypt-auto certonly --manual --email admin@example.com -d example.com
 ```
+ Before pressing key to continue, replace actual path-key and and file with challenge key in express server.
+ Note: Make sure your express server is accessible from the domain for which you want to optain certificate.
 
 This creates a directory: `/etc/letsencrypt/live/example.com/` containing certificate files:
 
@@ -69,9 +72,31 @@ server.listen(3000,function(err){
 ## NGINX
 ```Nginx
 server {
-    listen              443 ssl;
-    server_name         example.com;
-    ssl_certificate     /etc/letsencrypt/live/example.com/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/example.com/privkey.pem;
+    listen 8080;
+    listen 443 default ssl;
+    server_name cricketmanager.in;
+    ssl_certificate      /etc/letsencrypt/live/cricketmanager.in/fullchain.pem;
+    ssl_certificate_key  /etc/letsencrypt/live/cricketmanager.in/privkey.pem;
+    
+    location / {
+        proxy_pass  https://localhost:3000;
+        proxy_set_header   Connection "";
+        proxy_http_version 1.1;
+        proxy_set_header        Host            $host;
+        proxy_set_header        X-Real-IP       $remote_addr;
+        proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+
+gzip on;
+gzip_comp_level 4;
+gzip_types text/plain text/css application/json application/javascript application/x-javascript text/xml application/xml application/xml+rss text/javascript;
+
+
+location /public {
+    alias /var/app/current/public;
 }
+
+}
+
+
 ```
