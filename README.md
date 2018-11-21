@@ -74,7 +74,7 @@ server.listen(3000,function(err){
 server {
     listen 8080;
     listen 443 default ssl;
-    server_name cricketmanager.in;
+    server_name example.com;
     ssl_certificate      /etc/letsencrypt/live/cricketmanager.in/fullchain.pem;
     ssl_certificate_key  /etc/letsencrypt/live/cricketmanager.in/privkey.pem;
     
