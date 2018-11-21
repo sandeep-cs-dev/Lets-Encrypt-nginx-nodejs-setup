@@ -3,7 +3,7 @@
 Examples of getting certificates from [Let's Encrypt](https://letsencrypt.org/) working on NGINX and Node.js servers.
 
 ## Obtain certificates
-I chose to use the manual method, you have to make a file available to verify you own the domain. Follow the commands from running
+I am using the manual method, you have to make a file available to pass let's encryp acme-challenge. Follow the commands from running
 
 ```shell
 git clone https://github.com/letsencrypt/letsencrypt
