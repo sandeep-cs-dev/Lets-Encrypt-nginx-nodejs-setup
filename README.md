@@ -7,6 +7,7 @@ I am using the manual method. You have to make a file available through express 
 
 # express server for acme challenge
 ```javascript
+var express = require("express");
 var app = express();
 var path = require("path");
 var fs  =  require("fs");
