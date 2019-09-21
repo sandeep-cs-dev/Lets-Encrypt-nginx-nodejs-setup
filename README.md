@@ -1,6 +1,6 @@
 # Let's Encrypt
 
-Examples of getting certificates from [Let's Encrypt](https://letsencrypt.org/) while working on NGINX and Node.js servers.
+Examples of getting certificates from [Let's Encrypt](https://letsencrypt.org/) for NGINX and Node.js servers.
 
 ## Obtain certificates
 I am using the manual method. You have to make a file available through express to pass let's encrypt acme-challenge. 
