@@ -13,7 +13,7 @@ var path = require("path");
 var fs  =  require("fs");
 var server = require('http').createServer(options,app)
 
-app.get('/.well-known/acme-challenge/{path-key}'
+app.get('/.well-known/acme-challenge/:path_key'
 , function(req, res) {
     res.sendFile(path.join(__dirname + '/path_to_key_file'));
 });
@@ -33,7 +33,7 @@ git clone https://github.com/letsencrypt/letsencrypt
 cd letsencrypt
 ./letsencrypt-auto certonly --manual --email admin@example.com -d example.com
 ```
- Before pressing key to continue, replace actual path key and and file with challenge key in express server.
+ Before pressing key to continue, replace actual file with challenge key in express server.
  Make sure your express server is accessible from the domain for which you want to optain the certificate.
 
 This creates a directory: `/etc/letsencrypt/live/example.com/` containing below certificate files:
